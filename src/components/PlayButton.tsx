@@ -1,6 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import { Button } from 'antd';
-import { CaretRightOutlined, PauseOutlined } from '@ant-design/icons';
+import { PauseOutlined, CaretRightOutlined } from '@ant-design/icons';
 
 interface PlayButtonProps {
   monitoring: boolean;
@@ -8,22 +8,21 @@ interface PlayButtonProps {
   onPause?: () => void;
 }
 
-export const PlayButton: React.FC<PlayButtonProps> = ({ monitoring, onPlay, onPause }) => {
-  const [isPlay, togglePlay] = React.useState(monitoring);
+export function PlayButton({ monitoring, onPlay, onPause }: PlayButtonProps): JSX.Element {
+  const [isPlay, togglePlay] = React.useState<boolean>(monitoring);
   const renderIcon = isPlay ? <PauseOutlined /> : <CaretRightOutlined />;
-
   return (
     <Button
       style={{ marginTop: 20 }}
       shape="circle"
       icon={renderIcon}
       onClick={() => {
-        if (isPlay && onPause) {
-          onPause();
-        } else if (onPlay) onPlay();
-
+        if (onPlay && onPause) {
+          if (isPlay) onPause();
+          else onPlay();
+        }
         togglePlay(!isPlay);
       }}
     />
   );
-};
+}

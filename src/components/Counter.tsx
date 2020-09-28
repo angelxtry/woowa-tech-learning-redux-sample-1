@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { FormattedNumber } from './FormattedNumber';
 
 const DEFAULT_UNIT = '';
