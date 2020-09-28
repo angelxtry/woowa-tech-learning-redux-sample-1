@@ -1,4 +1,4 @@
-import { fork, all, take, race, delay, put, ForkEffect } from 'redux-saga/effects';
+import { all, delay, fork, ForkEffect, put, race, take } from 'redux-saga/effects';
 import { getType } from 'typesafe-actions';
 import * as Actions from '../actions';
 
@@ -11,18 +11,18 @@ function* monitoringWorkflow() {
     while (loop) {
       yield all([put({ type: getType(Actions.fetchSuccess) }), put({ type: getType(Actions.fetchFailure) })]);
 
-      const { stoped } = yield race({
-        waitting: delay(200),
-        stoped: take(getType(Actions.stopMonitoring)),
+      const { stopped } = yield race({
+        waiting: delay(200),
+        stopped: take(getType(Actions.stopMonitoring)),
       });
 
-      if (stoped) {
+      if (stopped) {
         loop = false;
       }
     }
   }
 }
 
-export default function* monitoringWorkflowiSaga(): Generator<ForkEffect<void>, void, unknown> {
+export default function* monitoringWorkflowSaga(): Generator<ForkEffect<void>, void, unknown> {
   yield fork(monitoringWorkflow);
 }

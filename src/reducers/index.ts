@@ -13,12 +13,12 @@ export const reducer = (state: StoreState = initializeState, action: ActionType<
     case getType(Actions.fetchSuccess):
       return {
         ...state,
-        success: state.success + Math.floor(Math.random() * (100 - 1) + 1),
+        success: state.success + Math.floor(Math.random() * 100),
       };
     case getType(Actions.fetchFailure):
       return {
         ...state,
-        failure: state.failure + Math.floor(Math.random() * (2 - 0)),
+        failure: state.failure + Math.floor(Math.random() * 2),
       };
     default:
       console.log(action.type);
